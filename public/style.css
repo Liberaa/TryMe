@@ -1,0 +1,191 @@
+/* ────────────────────────────────────────────────
+   0. Reset & page layout
+────────────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#111;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:system-ui,sans-serif;
+}
+/* ────────────────────────────────────────────────
+   1. Game window
+────────────────────────────────────────────────── */
+#game-area{
+  width:950px;                    /* match AREA_W in JS  */
+  height:550px;
+  border:3px solid #fff;
+  background:#444;                /* recoloured in JS    */
+  position:relative;              /* anchor abs children */
+  overflow:hidden;
+}
+
+/* ────────────────────────────────────────────────
+   2. Character & name tag
+────────────────────────────────────────────────── */
+#character-wrapper{
+  width:165px; height:265px;        /* match SPRITE_W      */
+  position:absolute; bottom:0;      /* x set by JS         */
+  will-change:transform;
+}
+#character{
+  width:100%; height:100%;
+  background:url("/assets/player.png") center/contain no-repeat;
+  background-size:contain;
+}
+#character.face-left{
+  transform:scaleX(-1);
+  transform-origin:center;
+}
+#char-name{
+  position:absolute; bottom:70px; left:50%;
+  transform:translateX(-50%);
+  color:#fff; font-size:.85rem; font-weight:600;
+  text-shadow:0 0 4px #000; pointer-events:none;
+  z-index:6;
+}
+
+/* ────────────────────────────────────────────────
+   3. HUD (top-left inside the frame)
+────────────────────────────────────────────────── */
+#hud{
+  position:absolute; top:10px; left:10px;
+  display:flex; gap:.75rem; z-index:10;
+}
+
+#hud .avatar{
+  width:48px; height:48px; border-radius:50%;
+  background:#777 url("/assets/player.png") center/cover;
+}
+
+#hud .stats{
+  display:flex; flex-direction:column; gap:.4rem;
+  width:120px;
+}
+
+/* generic bar shell */
+#hud .bar{
+  height:12px; border:1px solid #333; border-radius:4px;
+  overflow:hidden; background:#111;
+}
+#hud .bar span{display:block; height:100%}
+
+/* ── HP bar fix ── */
+#hud .bar.hp{position:relative;}      /* positioning context */
+
+#hud .bar.hp span{                    /* red fill only */
+  background:#e33; width:100%;
+}
+
+#hp-label{                            /* white text overlay */
+  position:absolute; inset:0;
+  display:flex; justify-content:center; align-items:center;
+  font-size:10px; color:#fff;
+  line-height:12px;                  /* match bar height */
+  pointer-events:none;
+}
+
+/* XP fill rule stays the same */
+#hud .xp span{background:#3ae; width:40%}   /* sample XP */
+
+/* ────────────────────────────────────────────────
+   4. Hamburger menu (top-right)
+────────────────────────────────────────────────── */
+#hamburger{
+  position:absolute; top:15px; right:15px;
+  width:38px; height:32px; background:none; border:none;
+  display:flex; flex-direction:column; justify-content:space-between;
+  cursor:pointer; z-index:11;
+}
+#hamburger span{height:4px; background:#fff; border-radius:2px}
+
+/* slide-in settings panel */
+#side-panel{
+  position:absolute; top:0; right:-220px;
+  width:200px; height:100%; background:#222; color:#fff;
+  padding:1rem; transition:right .25s ease; z-index:10;
+}
+#side-panel.open{right:0}
+
+/* ────────────────────────────────────────────────
+   5. Bag button & inventory window (bottom-right)
+────────────────────────────────────────────────── */
+#bag-btn{
+  position:absolute; right:15px; bottom:15px;
+  width:60px; height:60px; font-size:1.9rem;
+  border:none; border-radius:12px; background:#333; color:#fff;
+  cursor:pointer; z-index:11;
+}
+#bag-window{
+  position:absolute; right:90px; bottom:90px;
+  width:260px; height:300px;
+  background:#222; border:2px solid #555; border-radius:12px;
+  padding:1rem; color:#fff;
+  display:none; flex-direction:column; gap:.5rem; overflow:auto;
+  z-index:12;
+}
+#bag-window.open{display:flex}
+#bag-window h3{margin:.1rem 0 .6rem;font-size:1.15rem}
+#bag-window h4{margin:.7rem 0 .4rem;font-size:1rem}
+#bag-window ul{list-style:none;padding:0;margin:0;line-height:1.4}
+
+/* ── centre the HP value vertically & horizontally ───────── */
+
+
+/* ---------- Bag header (gold) ----------------------- */
+#bag-window .bag-header{
+  display:flex; justify-content:flex-start; align-items:center;
+  margin-bottom:.6rem; font-size:.95rem;
+}
+
+/* ---------- Slot grid ------------------------------- */
+#bag-grid{
+  display:grid;
+  grid-template-columns:repeat(6, 40px);
+  gap:6px;
+  margin-bottom:1rem;
+}
+.slot{
+  width:40px; height:40px;
+  border:1px solid #666; border-radius:4px;
+  background:#111;
+  display:flex; justify-content:center; align-items:center;
+  font-size:.6rem; color:#fff;
+}
+.slot.empty{opacity:.35;}
+
+
+/* ─────────── Talent button & panel ─────────── */
+
+/* ✨ button (bottom-right, above the bag) */
+/* ───── Talents button (left of the bag) ───── */
+#talent-btn{
+  position:absolute;
+  right:85px;          /* 60-px bag + 10-px gap → 15 + 60 + 10 = 85 */
+  bottom:15px;
+  width:60px; height:60px;
+  font-size:1.8rem;
+  border:none; border-radius:12px;
+  background:#555; color:#fff;
+  cursor:pointer;
+  z-index:11;
+}
+
+/* ───── Talents panel (opens above its button) ───── */
+#talent-window{
+  position:absolute;
+  right:160px;         /* 90 (bag panel) + 70 (btn+gap) */
+  bottom:90px;
+  width:260px; height:200px;
+  background:#222;
+  border:2px solid #555; border-radius:12px;
+  padding:1rem;
+  color:#fff;
+  display:none;        /* toggled by JS */
+  flex-direction:column; gap:.5rem;
+  overflow:auto;
+  z-index:12;
+}
+#talent-window.open{display:flex}

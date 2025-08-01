@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Multi-Area Game</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─────────────── GAME WINDOW ─────────────── -->
+  <div id="game-area">
+
+    <!-- ── HUD (top-left) ── -->
+    <div id="hud">
+      <div class="avatar"></div>
+
+      <div class="stats">
+        <!-- HP -->
+        <div class="bar hp"><span></span>
+          <em id="hp-label"></em>
+        </div>
+
+        <!-- XP -->
+        <div class="bar xp">
+          <span></span>
+          <em id="xp-label"></em>
+        </div>
+
+        <!-- Lv -->
+        <div id="lvl" class="lvl">Lv&nbsp;1</div>
+      </div>
+    </div>
+
+    <!-- ── Hamburger (top-right) ── -->
+    <button id="hamburger"><span></span><span></span><span></span></button>
+    <aside id="side-panel">⚙️ Settings (stub)</aside>
+
+    <!-- ── Character & name ── -->
+    <div id="character-wrapper">
+      <div id="character"></div>
+      <div id="char-name">Artemis</div>
+    </div>
+
+    <!-- ── Bag (bottom-right) ── -->
+    <button id="bag-btn">🧳</button>
+    <div id="bag-window" class="panel">
+      <div class="bag-header"><strong>Gold:</strong>&nbsp;<span id="gold">0</span></div>
+      <div id="bag-grid"></div>               <!-- 24-slot grid -->
+    </div>
+
+    <!-- ── Talents (just above bag) ── -->
+    <button id="talent-btn">✨</button>
+    <div id="talent-window" class="panel">
+      <h3>Talents</h3>
+      <ul id="talent-list"></ul>
+    </div>
+
+  </div><!-- /game-area -->
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
