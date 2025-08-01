@@ -3,13 +3,10 @@ export default class Player {
   /* ── core stats ─────────────────────── */
   maxHp = 300;
   hp    = 300;
-
   level    = 1;
   maxLevel = 110;
-
   xp       = 0;
   xpToNext = 100;        // first level-up at 100 xp
-
   gold = 10;
 
   /* ── bags & talents ─────────────────── */

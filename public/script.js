@@ -76,13 +76,17 @@ const AREA_W    = 950;
 const SPEED     = 280;
 
 const zones = [
-  { background:'#444' },
-  { background:'#225' },
-  { background:'#175e3a' },
-  { background:'#641414'}
+  { backgroundImage: 'url(assets/bg.png)' },
+  { backgroundImage: 'url(assets/bg1.png)' },
+  { backgroundImage: 'url(assets/bg2.png)' },
+  { backgroundImage: 'url(assets/bg3.png)' }
 ];
 let zone = 0;
-const paintZone = () => gameArea.style.background = zones[zone].background;
+const paintZone = () => {
+  gameArea.style.background = '';
+  gameArea.style.backgroundImage = zones[zone].backgroundImage;
+  gameArea.style.backgroundSize = 'cover'; // optional
+};
 paintZone();
 
 let x=100, leftHeld=false, rightHeld=false;
