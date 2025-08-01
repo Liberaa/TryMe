@@ -2,7 +2,7 @@
 export default class Player {
   /* ── core stats ─────────────────────── */
   maxHp = 300;
-  hp    = 200;
+  hp    = 300;
 
   level    = 1;
   maxLevel = 110;
