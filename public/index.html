@@ -58,6 +58,36 @@
 
   </div><!-- /game-area -->
 
+   <div id="battle-scene" class="hidden">
+  <div class="battle-portraits">
+    <div class="portrait hero">
+      <img src="assets/player.png">
+      <div class="stats">
+        <div class="hp-bar"><div class="fill" id="battle-hero-hp-bar"></div></div>
+        <div class="hp-text" id="battle-hero-hp">HP</div>
+      </div>
+    </div>
+
+    <div class="portrait enemy">
+      <img src="assets/enemy.png">
+      <div class="stats">
+        <div class="hp-bar"><div class="fill" id="battle-enemy-hp-bar"></div></div>
+        <div class="hp-text" id="battle-enemy-hp">HP</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="battle-options">
+    <button onclick="attackEnemy()">Attack</button>
+    <button onclick="fleeBattle()">Flee</button>
+    <button disabled>Skills</button>
+    <button disabled>Spells</button>
+    <button disabled>Items</button>
+  </div>
+</div>
+
+
+
   <script type="module" src="script.js"></script>
 </body>
 </html>

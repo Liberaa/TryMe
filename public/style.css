@@ -189,3 +189,116 @@ body{
   z-index:12;
 }
 #talent-window.open{display:flex}
+
+#npc-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.npc {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 250px;
+}
+.npc img {
+  width: 100%;
+}
+.npc .name {
+  font-size: 0.75rem;
+  color: white;
+  text-shadow: 0 0 3px black;
+}
+.npc.enemy img { filter: hue-rotate(0deg); }
+.npc.friendly img { filter: hue-rotate(120deg); }
+
+#battle-scene {
+  width: 950px;
+  height: 550px;
+  background: url('assets/battle-bg.png') center/cover no-repeat;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+  border: 3px solid #fff;
+  position: relative;
+}
+
+
+
+#battle-scene.visible {
+  display: flex;
+}
+
+.battle-portraits {
+  display: flex;
+  justify-content: space-between;
+}
+
+.portrait {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+}
+
+.portrait img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  background: #333;
+  border: 2px solid #999;
+  border-radius: 50%;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.hp-bar {
+  width: 120px;
+  height: 14px;
+  background: #222;
+  border: 1px solid #666;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.hp-bar .fill {
+  height: 100%;
+  background: #3f3;
+  width: 100%;
+}
+
+.hp-text {
+  font-size: 0.85rem;
+  text-shadow: 0 0 3px black;
+}
+
+.battle-options {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.battle-options button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background: #444;
+  border: 1px solid #aaa;
+  color: white;
+  cursor: pointer;
+  width: 120px;
+  text-align: left;
+}
+
+.battle-options button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
