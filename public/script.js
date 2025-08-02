@@ -162,7 +162,7 @@ requestAnimationFrame(loop);
 let currentEnemy = null;
 
 function startBattle(npc) {
-  if (!('hp' in npc)) npc.hp = npc.maxHp; // Set hp once if not already set
+  if (!('hp' in npc)) npc.hp = npc.maxHp;
 
   currentEnemy = {
     ...npc,
@@ -171,16 +171,20 @@ function startBattle(npc) {
     maxHp: npc.maxHp
   };
 
-  const enemyImg = document.getElementById('battle-enemy-img');
-  const heroImg  = document.getElementById('battle-hero-img');
-  if (enemyImg) enemyImg.src = npc.img || 'assets/enemy.png';
-  if (heroImg)  heroImg.src  = 'assets/player.png';
+  // Portrait icons (top-left/top-right)
+  document.getElementById('battle-enemy-img').src = npc.img || 'assets/enemy.png';
+  document.getElementById('battle-hero-img').src  = 'assets/player.png';
+
+  // Full-body sprites (center of scene)
+  document.getElementById('battle-enemy-sprite').src = npc.img || 'assets/enemy.png';
+  document.getElementById('battle-hero-sprite').src  = 'assets/player.png';
 
   gameArea.style.display = 'none';
   document.getElementById('battle-scene').classList.add('visible');
 
   updateBattleUI();
 }
+
 
 function updateBattleUI() {
   document.getElementById('battle-hero-hp').textContent = `${hero.hp}/${hero.maxHp}`;
@@ -190,15 +194,58 @@ function updateBattleUI() {
   document.getElementById('battle-enemy-hp-bar').style.width = (currentEnemy.hp / currentEnemy.maxHp * 100) + '%';
 }
 
+function showDamagePopup(amount) {
+  const popup = document.getElementById('damage-popup');
+  popup.textContent = `-${amount}`;
+  popup.classList.remove('hidden');
+  popup.style.animation = 'none'; // reset animation
+  void popup.offsetWidth;         // force reflow
+  popup.style.animation = '';     // restart animation
+
+  setTimeout(() => {
+    popup.classList.add('hidden');
+  }, 600);
+}
+
+function showHeroDamagePopup(amount) {
+  const popup = document.getElementById('hero-damage-popup');
+  popup.textContent = `-${amount}`;
+  popup.classList.remove('hidden');
+  popup.style.animation = 'none';
+  void popup.offsetWidth;
+  popup.style.animation = '';
+  setTimeout(() => {
+    popup.classList.add('hidden');
+  }, 600);
+}
+
+
 window.attackEnemy = () => {
+  const heroSprite  = document.getElementById('battle-hero-sprite');
+  const enemySprite = document.getElementById('battle-enemy-sprite');
+
+  // Hero attack
   currentEnemy.hp -= 30;
-  hero.takeDamage(15);
+  heroSprite.classList.add('attack');
+  showDamagePopup(30);
+  setTimeout(() => heroSprite.classList.remove('attack'), 250);
 
-  if (currentEnemy.hp <= 0) return endBattle(true);
-  if (hero.hp <= 0) return endBattle(false);
+  // Delay enemy retaliation
+  setTimeout(() => {
+    hero.takeDamage(15);
+    enemySprite.classList.add('attack');
+    showHeroDamagePopup(15);
+    updateBattleUI();
 
-  updateBattleUI();
+    setTimeout(() => enemySprite.classList.remove('attack'), 250);
+
+    // Only check for death after UI updates
+    if (currentEnemy.hp <= 0) return endBattle(true);
+    if (hero.hp <= 0) return endBattle(false);
+  }, 300);
 };
+
+
 
 window.fleeBattle = () => endBattle(false);
 
@@ -238,3 +285,5 @@ document.addEventListener('keypress', e => {
     drawHUD();
   }
 });
+
+

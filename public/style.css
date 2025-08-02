@@ -307,3 +307,65 @@ background: url('assets/battle-bg.png') center/cover no-repeat, #111;
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+
+.battle-sprites {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.hero-sprite, .enemy-sprite {
+  height: 250px;
+  image-rendering: pixelated;
+}
+
+.hero-sprite {
+  height: 250px;
+  transform: scaleX(1); /* flips horizontally to face right */
+}
+
+.enemy-sprite {
+  height: 250px;
+  transform: scaleX(-1);  /* default facing left */
+}
+
+.damage-popup {
+  position: absolute;
+  left: 75%;               /* roughly above enemy sprite */
+  bottom: 260px;
+  font-size: 1.5rem;
+  color: red;
+  font-weight: bold;
+  text-shadow: 0 0 3px black;
+  animation: float-up 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: 99;
+}
+
+@keyframes float-up {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-40px); }
+}
+
+.hidden {
+  display: none;
+}
+
+.enemy-sprite.attack {
+  animation: enemy-strike 0.25s ease;
+}
+
+@keyframes enemy-strike {
+  0%   { transform: scaleX(-1) translateX(0); }
+  50%  { transform: scaleX(-1) translateX(-30px); }
+  100% { transform: scaleX(-1) translateX(0); }
+}
+
+#hero-damage-popup {
+  left: 20%;
+  bottom: 260px;
+}

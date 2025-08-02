@@ -1,8 +1,8 @@
 // public/player.js
 export default class Player {
   /* ── core stats ─────────────────────── */
-  maxHp = 4000;
-  hp    = 4000;
+  maxHp = 200;
+  hp    = 200;
   level    = 1;
   maxLevel = 110;
   xp       = 0;

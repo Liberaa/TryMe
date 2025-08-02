@@ -59,6 +59,8 @@
   </div><!-- /game-area -->
 
   <div id="battle-scene" class="hidden">
+    <div id="damage-popup" class="damage-popup hidden">-30</div>
+    <div id="hero-damage-popup" class="damage-popup hidden">-15</div>
   <div class="battle-portraits">
     <div class="portrait hero">
       <img id="battle-hero-img" src="assets/player.png">
@@ -76,6 +78,12 @@
       </div>
     </div>
   </div>
+
+<div class="battle-sprites">
+  <img id="battle-hero-sprite" class="hero-sprite" src="assets/player.png">
+  <img id="battle-enemy-sprite" class="enemy-sprite" src="">
+</div>
+
 
   <div class="battle-options">
     <button onclick="attackEnemy()">Attack</button>
