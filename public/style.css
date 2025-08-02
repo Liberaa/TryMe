@@ -22,6 +22,11 @@ body{
   overflow:hidden;
 }
 
+.hidden {
+  display: none;
+}
+
+
 /* ────────────────────────────────────────────────
    2. Character & name tag
 ────────────────────────────────────────────────── */
@@ -218,7 +223,7 @@ body{
 #battle-scene {
   width: 950px;
   height: 550px;
-  background: url('assets/battle-bg.png') center/cover no-repeat;
+background: url('assets/battle-bg.png') center/cover no-repeat, #111;
   display: none;
   flex-direction: column;
   justify-content: space-between;
